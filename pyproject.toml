@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mermaid2svg"
+version = "0.1.0"
+description = "Convert Mermaid diagrams to SVG as a REST API, Gradio web app and MCP server"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = ["mermaidx>=0.11"]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn>=0.29", "python-multipart>=0.0.30"]
+gradio = ["gradio>=6.16.0"]
+mcp = ["mcp>=2.0"]
+all = ["mermaid2svg[api,gradio,mcp]"]
+test = ["mermaid2svg[all]", "pytest>=8", "httpx>=0.27"]
+
+[project.scripts]
+mermaid2svg-api = "mermaid2svg.api:main"
+mermaid2svg-gradio = "mermaid2svg.gradio_app:main"
+mermaid2svg-mcp = "mermaid2svg.mcp_server:main"
+
+[tool.setuptools]
+packages = ["mermaid2svg"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
