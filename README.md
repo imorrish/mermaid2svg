@@ -1,5 +1,9 @@
 # mermaid2svg
-Convert mermaid markdown to svg as a web app, api and mcp server
+Convert mermaid markdown to svg as a web app, api and mcp server.
+
+Handy for converting AI generated diagrams into SVG which can be inserted into FOR as an image.
+
+Try it out on [Huggingface spaces](https://huggingface.co/spaces/imorrish/mermaid2svg)
 
 Rendering is done in pure Python with [mermaidx](https://pypi.org/project/mermaidx/)
 (no browser, Node.js or npm required):
