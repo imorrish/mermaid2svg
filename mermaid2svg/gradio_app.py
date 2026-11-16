@@ -34,11 +34,14 @@ def _preview_html(svg: str) -> str:
     )
 
 
-def load_file(file_path: str | None) -> str:
+def load_file(content: bytes | None) -> str:
     """Return the text content of an uploaded Mermaid file."""
-    if not file_path:
+    if not content:
         return ""
-    return Path(file_path).read_text(encoding="utf-8")
+    try:
+        return content.decode("utf-8")
+    except UnicodeDecodeError as exc:
+        raise gr.Error("Uploaded file must be UTF-8 text.") from exc
 
 
 def convert(mermaid_code: str) -> tuple[str, str | None, str]:
@@ -62,7 +65,7 @@ def build_app() -> gr.Blocks:
                 upload = gr.File(
                     label="…or upload a Mermaid file",
                     file_types=[".mmd", ".mermaid", ".txt", ".md"],
-                    type="filepath",
+                    type="binary",
                 )
                 button = gr.Button("Convert to SVG", variant="primary")
             with gr.Column():

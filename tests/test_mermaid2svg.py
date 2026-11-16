@@ -63,10 +63,8 @@ def test_api_render_invalid(client):
     assert "detail" in r.json()
 
 
-def test_gradio_convert(tmp_path):
-    src = tmp_path / "d.mmd"
-    src.write_text(VALID)
-    code = load_file(str(src))
+def test_gradio_convert():
+    code = load_file(VALID.encode())
     preview, path, svg = convert(code)
     assert "data:image/svg+xml;base64," in preview
     assert svg.lstrip().startswith("<svg")
